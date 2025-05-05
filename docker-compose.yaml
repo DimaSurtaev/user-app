@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  api:
+    build:
+      context: . 
+      dockerfile: Dockerfile 
+    volumes:
+      - ./app.py:/app/app.py
+      - ./templates:/app/templates
+      - ./static:/app/static
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+      - SQLALCHEMY_DATABASE_URI=mysql+mysqlconnector://root:123@db/db
+    command: python app.py
+    networks:
+      - app-network
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: db
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
+    healthcheck:
+         test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+         interval: 5s
+         timeout: 5s
+         retries: 10
+  adminer:
+    image: adminer:latest
+    ports:
+      - 8080:8080
+    depends_on: 
+      - db
+    networks:
+      - app-network
+volumes:
+  db_data:
+networks:
+  app-network:
+    driver: bridge
