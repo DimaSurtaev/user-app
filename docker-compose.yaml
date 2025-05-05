@@ -1,9 +1,7 @@
 version: '3.8'
 services:
   api:
-    build:
-      context: . 
-      dockerfile: Dockerfile 
+    image: surtaev/user-app-api:latest
     volumes:
       - ./app.py:/app/app.py
       - ./templates:/app/templates
