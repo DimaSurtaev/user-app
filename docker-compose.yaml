@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   api:
-    image: surtaev/user-app-api:latest
+    image: surtaev/user-app-api:la
     volumes:
       - ./app.py:/app/app.py
       - ./templates:/app/templates
@@ -14,14 +14,14 @@ services:
     environment:
       - FLASK_APP=app.py
       - FLASK_ENV=development
-      - SQLALCHEMY_DATABASE_URI=mysql+mysqlconnector://root:123@db/db
+      - SQLALCHEMY_DATABASE_URI=mysql+mysqlconnector://root:pass@db/db
     command: python app.py
     networks:
       - app-network
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_ROOT_PASSWORD: pass
       MYSQL_DATABASE: db
     ports:
       - "3306:3306"

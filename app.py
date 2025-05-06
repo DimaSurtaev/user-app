@@ -12,7 +12,7 @@ template_dir = os.path.abspath('./templates')
 static_dir = os.path.abspath('./static')
 
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI', 'mysql+mysqlconnector://root:123@db/db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI', 'mysql+mysqlconnector://root:pass@db/db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -33,7 +33,7 @@ def create_database():
             conn = mysql.connector.connect(
                 host='db',
                 user='root',
-                password='123'
+                password='pass'
             )
             cursor = conn.cursor()
             cursor.execute("SHOW DATABASES")
