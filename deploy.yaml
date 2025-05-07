@@ -39,9 +39,15 @@ spec:
           failureThreshold: 10
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: "pass"
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: password
         - name: MYSQL_DATABASE
-          value: "db"
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: dbname
         ports:
         - containerPort: 3306
         volumeMounts:
@@ -87,7 +93,10 @@ spec:
           - name: FLASK_ENV
             value: development
           - name: SQLALCHEMY_DATABASE_URI
-            value: mysql+mysqlconnector://root:pass@mysql/db
+            valueFrom:
+              secretKeyRef: 
+                name: mysecret
+                key: SQLALCHEMY
         ports:
         - containerPort: 5000
         volumeMounts:
