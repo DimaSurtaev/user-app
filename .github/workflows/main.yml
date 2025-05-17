@@ -5,4 +5,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
        - name: print to console
-         run: echk Test
+         run: echo Test
