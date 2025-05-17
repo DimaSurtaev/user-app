@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   api:
-    image: surtaev/user-app-api:la
+    image: surtaev/user-app-api:latest
     volumes:
       - ./app.py:/app/app.py
       - ./templates:/app/templates
