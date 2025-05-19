@@ -17,7 +17,7 @@ jobs:
             - name: Get code
               uses: actions/checkout@v4
             - name: verifa sql connect
-              run: mysql --host=127.0.0.1 --port=3306 --user=root --password=pass -e "SHOW DATABASES;
+              run: mysql --host=127.0.0.1 --port=3306 --user=root --password=pass -e "SHOW DATABASES;"
             - name: Install PYTHON
               uses: actions/setup-python@v5
               with:
