@@ -35,7 +35,13 @@ jobs:
                 --port=3306 \
                 --user=root \
                 --password=pass \
-                -e "SHOW DATABASES;"   
+                -e "SHOW DATABASES;" 
+                
+                mysql --host=127.0.0.1 \
+                --port=3306 \
+                --user=root \
+                --password=pass \
+                -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass'; FLUSH PRIVILEGES;"
                 
             - name: Install PYTHON
               uses: actions/setup-python@v5
