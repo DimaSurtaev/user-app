@@ -6,6 +6,21 @@ jobs:
         env:
           FLASK_APP: app.py
           FLASK_ENV: development
+          MYSQL_ROOT_PASSWORD: pass
+          MYSQL_DATABASE: db
+        services:
+          mysql:
+            image: mysql:8.0
+            env:
+              MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+              MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+            ports:
+              - 3306:3306
+            options: >-
+              --health-cmd="mysqladmin ping -h localhost"
+              --health-interval=10s
+              --health-timeout=5s
+              --health-retries=3
         steps:
             - name: Get code
               uses: actions/checkout@v4 
@@ -16,6 +31,11 @@ jobs:
                 cache: 'pip'
             - name: Install dependencies
               run: pip install --no-cache-dir -r requirements.txt
+            - name: Wait for MySQL
+              run: |
+                until mysqladmin ping -h127.0.0.1 -uroot -p${{ env.MYSQL_ROOT_PASSWORD }}; do
+                echo "Waiting for MySQL..."
+                sleep 2
             - name: run Test
               run: python app.py
 
