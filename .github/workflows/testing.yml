@@ -13,20 +13,30 @@ jobs:
             env:
                 MYSQL_ROOT_PASSWORD: pass
                 MYSQL_DATABASE: db
+            options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=5s --health-retries=10
+            ports:
+              - 3306:3306
         steps:
             - name: Get code
               uses: actions/checkout@v4
-            - name: verifa sql connect
+            - name: install client mysql
               run: |
-                sudo systemctl start mysql
-                sudo systemctl enable mysql
-                sudo systemctl status mysql
-                sudo mysql <<MYSQL_SCRIPT
-                ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass';
-                FLUSH PRIVILEGES;
-                MYSQL_SCRIPT
-                sudo ss -tuln | grep 3306
-                mysql --host=127.0.0.1 --port=3306 --user=root --password=pass -e "SHOW DATABASES;"
+                sudo apt-get update && sudo apt install -y default-mysql-client 
+            - name: Wait for MySQL to be ready
+              run: |
+                mysql --host=127.0.0.1 \
+                --port=3306 \
+                --user=root \
+                --password=pass \
+                -e "SELECT VERSION();" 
+            - name: Verify DB connection and setup
+              run: |
+                mysql --host=127.0.0.1 \
+                --port=3306 \
+                --user=root \
+                --password=pass \
+                -e "SHOW DATABASES;"   
+                
             - name: Install PYTHON
               uses: actions/setup-python@v5
               with:
