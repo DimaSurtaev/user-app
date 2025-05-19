@@ -33,7 +33,7 @@ jobs:
               run: pip install --no-cache-dir -r requirements.txt
             - name: Wait for MySQL
               run: |
-                until mysqladmin ping -h127.0.0.1 -uroot -p${{ env.MYSQL_ROOT_PASSWORD }}; do
+                until mysqladmin ping -h 127.0.0.1 -uroot; do
                 echo "Waiting for MySQL..."
                 sleep 2
             - name: run Test
