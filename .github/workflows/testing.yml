@@ -10,7 +10,7 @@ jobs:
             - name: Get code
               uses: actions/checkout@v4
             - name: Install Mysql
-              run: sudo apt get update && apt install mysql-client  
+              run: sudo apt-get update && apt-get install mysql-client  
             - name: Install PYTHON
               uses: actions/setup-python@v5
               with:
