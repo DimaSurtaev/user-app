@@ -7,20 +7,17 @@ jobs:
           FLASK_APP: app.py
           FLASK_ENV: development
           SQLALCHEMY_DATABASE_URI: mysql+mysqlconnector://root:pass@db/db
+        services:
+          mysql:
+            image: mysql:8.0
+            env:
+                MYSQL_ROOT_PASSWORD: pass
+                MYSQL_DATABASE: db
         steps:
             - name: Get code
               uses: actions/checkout@v4
-            - name: Install Mysql
-              run: | 
-                sudo apt-get update 
-                sudo apt-get install -y mysql-server
-                sudo systemctl start mysql 
-            - name: Configure MYSQL
-              run: |
-                sudo mysql
-                sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass';"
-                sudo mysql -u root -ppass -e "CREATE DATABASE db;"
-                sudo mysql -u root -ppass -e "FLUSH PRIVILEGES;"
+            - name: verifa sql connect
+              run: mysql --host=127.0.0.1 --port=3306 --user=root --password=pass -e "SHOW DATABASES;
             - name: Install PYTHON
               uses: actions/setup-python@v5
               with:
