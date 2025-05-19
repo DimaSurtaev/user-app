@@ -14,8 +14,7 @@ jobs:
               run: | 
                 sudo apt-get update 
                 sudo apt-get install -y mysql-server
-                sudo systemctl start mysql
-                mysqladmin ping - h localhost 
+                sudo systemctl start mysql 
             - name: Configure MYSQL
               run: |
                 sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass';"
