@@ -20,8 +20,13 @@ jobs:
               run: |
                 sudo systemctl start mysql
                 sudo systemctl enable mysql
+                sudo systemctl status mysql
+                sudo mysql
+                ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass';
+                FLUSH PRIVILEGES;
+                exit;
                 sudo ss -tuln | grep 3306
-                mysql --host=localhost --port=3306 --user=root --password=pass -e "SHOW DATABASES;"
+                mysql --host=127.0.0.1 --port=3306 --user=root --password=pass -e "SHOW DATABASES;"
             - name: Install PYTHON
               uses: actions/setup-python@v5
               with:
