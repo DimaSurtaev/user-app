@@ -10,7 +10,10 @@ jobs:
             - name: Get code
               uses: actions/checkout@v4
             - name: Install Mysql
-              run: sudo apt-get update && apt-get install mysql-client  
+              run: | 
+                sudo apt-get update 
+                sudo apt-get install -y mysql-server
+                sudo systemctl start mysql  
             - name: Install PYTHON
               uses: actions/setup-python@v5
               with:
@@ -20,7 +23,7 @@ jobs:
               run: pip install --no-cache-dir -r requirements.txt
             - name: Wait for MySQL
               run: |
-                until mysqladmin ping -h 127.0.0.1 -uroot; do
+                until mysqladmin ping -h 127.0.0.1; do
                   echo "Waiting for MySQL..."
                   sleep 2
                 done
