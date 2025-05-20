@@ -24,5 +24,7 @@ jobs:
             - name: install K8S
               uses: azure/setup-kubectl@v4
             - name: Deploy
-              run: kubectl apply -f deploy.yaml
+              run: |
+                sudo  minikube start
+                kubectl apply -f deploy.yaml
                
