@@ -6,13 +6,13 @@ jobs:
         env:
           FLASK_APP: app.py
           FLASK_ENV: development
-          SQLALCHEMY_DATABASE_URI: mysql+mysqlconnector://root:pass@db/db
+          SQLALCHEMY_DATABASE_URI: ${{secrets.CONNECT_DB}}
         services:
           mysql:
             image: mysql:8.0
             env:
-                MYSQL_ROOT_PASSWORD: pass
-                MYSQL_DATABASE: db
+                MYSQL_ROOT_PASSWORD: ${{secrets.PASS_DB}}
+                MYSQL_DATABASE: ${{secrets.DATA_BASE}}
             options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=5s --health-retries=10
             ports:
               - 3306:3306
@@ -26,22 +26,22 @@ jobs:
               run: |
                 mysql --host=127.0.0.1 \
                 --port=3306 \
-                --user=root \
-                --password=pass \
+                --user=${{secrets.ROOT_USER}} \
+                --password=${{secrets.PASS_DB}} \
                 -e "SELECT VERSION();" 
             - name: Verify DB connection and setup
               run: |
                 mysql --host=127.0.0.1 \
                 --port=3306 \
-                --user=root \
-                --password=pass \
+                --user=${{secrets.ROOT_USER}} \
+                --password=${{secrets.PASS_DB}} \
                 -e "SHOW DATABASES;" 
                 
                 mysql --host=127.0.0.1 \
                 --port=3306 \
-                --user=root \
-                --password=pass \
-                -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass'; FLUSH PRIVILEGES;"
+                --user=${{secrets.ROOT_USER}}\
+                --password=${{secrets.PASS_DB}}  \
+                -e "ALTER USER '${{secrets.ROOT_USER}}'@'localhost' IDENTIFIED WITH mysql_native_password BY '${{secrets.PASS_DB}}'; FLUSH PRIVILEGES;"
                 
             - name: Install PYTHON
               uses: actions/setup-python@v5
