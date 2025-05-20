@@ -25,6 +25,6 @@ jobs:
               uses: azure/setup-kubectl@v4
             - name: Deploy
               run: |
-                sudo  minikube start
+                minikube start
                 kubectl apply -f deploy.yaml
                
