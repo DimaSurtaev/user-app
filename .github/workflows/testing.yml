@@ -40,7 +40,7 @@ jobs:
                 mysql --host=127.0.0.1 \
                 --port=3306 \
                 --user=${{secrets.ROOT_USER}}\
-                --password=${{secrets.PASS_DB}}  \
+                --password=${{secrets.PASS_DB}}\
                 -e "ALTER USER '${{secrets.ROOT_USER}}'@'localhost' IDENTIFIED WITH mysql_native_password BY '${{secrets.PASS_DB}}'; FLUSH PRIVILEGES;"
                 
             - name: Install PYTHON
