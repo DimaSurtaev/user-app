@@ -26,6 +26,8 @@ jobs:
             - name: Deploy
               run: |
                 minikube start
+                kubectl apply -f secrets.yaml
                 kubectl apply -f deploy.yaml
                 kubectl apply -f monitoring.yaml
+                kubectl apply -f secrets.yaml
                 
