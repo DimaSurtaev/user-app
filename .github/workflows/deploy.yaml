@@ -29,6 +29,4 @@ jobs:
                 kubectl apply -f deploy.yaml
                 kubectl apply -f monitoring.yaml
                 kubectl apply -f secrets.yaml
-                kubectl apply -f metrics-server.yaml
-                kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-               
+                
