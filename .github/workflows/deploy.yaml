@@ -23,10 +23,23 @@ jobs:
                     surtaev/user-app-api:${{ github.sha }}
             - name: install K8S
               uses: azure/setup-kubectl@v4
+            - name: Creature secrets.yaml
+              run: |
+                cat <<EOF > secrets.yaml
+                apiVersion: v1
+                kind: Secret
+                metadata:
+                  name: app-secrets
+                type: Opaque
+                data:
+                  password: ${{secrets.PASS_SECRET_YAML}}
+                  dbname: ${{secrets.DB_SECRET_YAML}}
+                  SQLALCHEMY: ${{secrets.CONNECT_SECRET_YAML}}
+                EOF
             - name: Deploy
               run: |
                 minikube start
-                kubectl apply -f secrets.yaml
                 kubectl apply -f deploy.yaml
                 kubectl apply -f monitoring.yaml
-                
+                kubectl apply -f secrets.yaml
+                kubectl apply -f metrics-server.yaml
