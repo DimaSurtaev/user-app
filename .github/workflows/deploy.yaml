@@ -32,9 +32,9 @@ jobs:
                   name: app-secrets
                 type: Opaque
                 data:
-                  password: ${{secrets.PASS_DB}}
-                  dbname: ${{secrets.DATA_BASE}}
-                  SQLALCHEMY: ${{secrets.CONNECT_DB}}
+                  password: ${{secrets.PASS_SECRET_YAML}}
+                  dbname: ${{secrets.DB_SECRET_YAML}}
+                  SQLALCHEMY: ${{secrets.CONNECT_SECRET_YAML}}
                 EOF
             - name: Deploy
               run: |
