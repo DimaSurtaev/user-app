@@ -37,5 +37,3 @@
   - Также были написаны `NetworkPolicy`, который разрешает исходящий трафик к подам в пространстве имён (monitoring), а также исходящий трафик с простаства имен default c пометкой пода api.
 ## 4. СI/CD
  - Реализовано в GitHub Actions. Сборка `Dockerfile`, push образа на DockerHub c тэгом коммита (latest=tagcommit), деплой проекта с последним образом в `Kubernetes`.
-## Мини-демо приложения
-   ![Мой GIF](https://d3q44e7ubi1hi2.cloudfront.net/a875u6%2Fpreview%2F67503643%2Fmain_large.gif?response-content-disposition=inline%3Bfilename%3D%22main_large.gif%22%3B&response-content-type=image%2Fgif&Expires=1748242035&Signature=DsEVePGRJdidKAks9MiREH8w9TiPFRBvi29YqXHEgu-Xy14CJuLgZ8fWUDldMHAN503~9Yf7ME5QSsg5py1lVJjrK585oMf75vnfwba-gcs9JGmSHXmxbZ2C7lhmab-ZXCKsq9SjJoebBUUMwCOowIUdsrCNnlVKx1YThQK16E7J37NANXWK1WwIFPn0kaoMN3UoL3ML8iaP5jRuOlfaTHiKL50HDGNlw3v8WLXTjreGrigBdaPQ6ouNY5izrVok1YTeshmteVC11c5O~mkzn1LdUlL-aXO~PXf6ekrFMDw2-zGnDN3MU9RqR0pDT~xnZfyx7BlMY2PoJcce3~8jJw__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ)
